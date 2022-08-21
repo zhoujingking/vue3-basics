@@ -1,10 +1,20 @@
 <script setup>
-import { useMouse } from '@vueuse/core'
-const {x, y} = useMouse();
+import { ref } from 'vue'
+import { useFocus } from '@vueuse/core'
+
+const button = ref();
+const input = ref();
+const para = ref()
+const { focused : buttonFocus } = useFocus(button);
+const { focused : inputFocus } = useFocus(input);
+const { focused : paraFocus } = useFocus(para);
 </script>
 
 <template>
-  <div>x: {{x}}, y: {{y}}</div>
+  <button ref="button">target ref -- {{buttonFocus}}</button>
+  <input type="text" ref="input" :value="inputFocus">
+  <!-- tabindex is the key attribute to make div focusable -->
+  <div ref="para" tabindex="0" >godking -- {{paraFocus}}</div>
 </template>
 
 <style scoped>
